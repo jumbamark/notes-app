@@ -13,6 +13,7 @@ const NotesPage = () => {
 
     // calling the db
     const getNote =  async () => {
+        if (id === "create") return
         const response = await fetch(`/api/notes/${id}/`);
         const data = await response.json();
         setNote(data);
@@ -29,7 +30,13 @@ const NotesPage = () => {
     }
 
     const handleSubmit = () => {
-        updateNote();
+        if (id !== "create" && !note.body ) {
+            deleteNote()
+        } else if (id !== "create") {
+            updateNote();
+        } else if (id === 'create' && note.body !== null) {
+            createNote();
+        }
         navigate('/');
     }
 
@@ -43,6 +50,28 @@ const NotesPage = () => {
         navigate('/');
     }
 
+    const createNote = () => {
+        fetch('/api/notes/create/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(note)
+        })
+        // navigate('/');
+    }
+
+    const handleChange = (value) => {
+        console.log("Mark");
+        setNote(
+            note => ({
+                ...note,
+                'body' : value
+            }),
+            // 'body' : value,
+        )
+    }
+
     return (
         <div className="note">
             <div className="note-header">
@@ -50,10 +79,16 @@ const NotesPage = () => {
                     {/* <Link to="/"> */}
                         <ArrowLeft onClick={handleSubmit}/>
                     {/* </Link> */}
-                </h3>
-                <button onClick={deleteNote}>Delete</button>
+                </h3> 
+                {/* if note id is not equal to create then add in the delete buttton, if create prompt user to hit done */}
+                {id !== 'create' ? (
+                    <button onClick={deleteNote}>Delete</button>
+                ): (
+                    <button onClick={handleSubmit}>Done</button>
+                )}
+        
             </div>
-            <textarea onChange={(e) => {setNote({...note, 'body':e.target.value})}} defaultValue={note?.body}></textarea>
+            <textarea onChange={(e) => {handleChange(e.target.value)}} value={note?.body}></textarea>
         </div>
     );
 }
