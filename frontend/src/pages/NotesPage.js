@@ -62,7 +62,7 @@ const NotesPage = () => {
     }
 
     const handleChange = (value) => {
-        console.log("Mark");
+        // console.log("Mark");
         setNote(
             note => ({
                 ...note,
