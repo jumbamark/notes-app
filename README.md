@@ -1,4 +1,4 @@
-# Notes App
+## Notes App# Notes App
 
 The Notes App is a comprehensive web-based application developed to streamline note-taking and organization for users. Built on a robust tech stack utilizing Django/DRF for the backend and React for the frontend, this project aims to offer an intuitive and efficient note management system.
 
@@ -37,4 +37,4 @@ The `frontend` directory holds the React frontend codebase. Find detailed setup 
 
 ## Contribution and License
 
-Contributions to the project are welcome! Fork the repository, make changes, and submit pull requests to contribute.
+Contributio
